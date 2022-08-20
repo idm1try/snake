@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { Box, Button, Center, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { FaGithub, FaStar, FaTrophy } from 'react-icons/fa';
 import { GiSandSnake } from 'react-icons/gi';
 import useInterval from '@use-it/interval';
-import { Box, Button, Center, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import { HeadComponent as Head } from '../components/Head';
 
 type Apple = {
@@ -338,6 +339,7 @@ function App() {
                 display='flex'
                 flexDirection='column'
                 alignItems='center'
+                textAlign='center'
                 justifyContent='center'
                 flexWrap='wrap'
                 position='absolute'
@@ -345,15 +347,30 @@ function App() {
                 left='0'
                 backdropFilter='blur(10px)'
               >
-                <GiSandSnake size={100} />
-                <Heading textTransform='uppercase'>snake</Heading>
-                <Text my='2'>Your highscore: {highscore > score ? highscore : score}</Text>
-                <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
-                  {countDown === 4 ? 'Start' : countDown}
-                </Button>
+                <motion.div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    justifyContent: 'center',
+                  }}
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Box as={GiSandSnake} size={100} />
+                  <Heading textTransform='uppercase'>snake</Heading>
+                  <Text my='2'>Your highscore: {highscore > score ? highscore : score}</Text>
+                  <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
+                    {countDown === 4 ? 'Start' : countDown}
+                  </Button>
+                </motion.div>
               </Box>
             ) : (
-              <Box></Box>
+              <Box />
             )}
             {isLost && (
               <Box
@@ -366,18 +383,34 @@ function App() {
                 flexDirection='column'
                 alignItems='center'
                 justifyContent='center'
+                textAlign='center'
                 flexWrap='wrap'
                 position='absolute'
                 top='0'
                 left='0'
                 backdropFilter='blur(10px)'
               >
-                <Heading>Game Over</Heading>
-                <Text my='2'>
-                  {newHighscore
-                    ? `New Highscore: ${highscore > score ? highscore : score}`
-                    : `You scored: ${score}`}
-                </Text>
+                <motion.div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexWrap: 'wrap',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    justifyContent: 'center',
+                  }}
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: 20, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Heading>Game Over</Heading>
+                  <Text my='2'>
+                    {newHighscore
+                      ? `New Highscore: ${highscore > score ? highscore : score}`
+                      : `You scored: ${score}`}
+                  </Text>
+                </motion.div>
                 {!running && isLost && (
                   <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
                     {countDown === 4 ? 'Restart' : countDown}
