@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
-import { FaStar, FaTrophy } from 'react-icons/fa';
+import { FaGithub, FaStar, FaTrophy } from 'react-icons/fa';
 import { GiSandSnake } from 'react-icons/gi';
 import useInterval from '@use-it/interval';
 import { Box, Button, Center, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { HeadComponent as Head } from '../components/Head';
 
 type Apple = {
   x: number;
@@ -312,79 +313,96 @@ function App() {
   }, [previousVelocity]);
 
   return (
-    <Center h='100vh'>
-      <Box bgColor={useColorModeValue('gray.50', 'gray.700')} borderRadius='lg'>
-        <canvas ref={canvasRef} width={canvasWidth + 1} height={canvasHeight + 1} />
-        <Box bgColor={useColorModeValue('gray.200', 'gray.900')} borderBottomRadius='lg' p='5'>
-          <Flex>
-            <Text mr={5}>
-              <Box as={FaStar} mr={1} /> Score: {score}
-            </Text>
-            <Text>
-              <Box as={FaTrophy} mr={1} />
-              Highscore: {highscore > score ? highscore : score}
-            </Text>
-          </Flex>
-          {!isLost && countDown > 0 ? (
-            <Box
-              w='100%'
-              h='100%'
-              p='20px'
-              borderRadius='lg'
-              boxSizing='border-box'
-              display='flex'
-              flexDirection='column'
-              alignItems='center'
-              justifyContent='center'
-              flexWrap='wrap'
-              position='absolute'
-              top='0'
-              left='0'
-              backdropFilter='blur(10px)'
-            >
-              <GiSandSnake size={100} />
-              <Heading textTransform='uppercase'>snake</Heading>
-              <Text my='2'>Your highscore: {highscore > score ? highscore : score}</Text>
-              <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
-                {countDown === 4 ? 'Start' : countDown}
-              </Button>
-            </Box>
-          ) : (
-            <Box></Box>
-          )}
-          {isLost && (
-            <Box
-              w='100%'
-              h='100%'
-              p='20px'
-              borderRadius='lg'
-              boxSizing='border-box'
-              display='flex'
-              flexDirection='column'
-              alignItems='center'
-              justifyContent='center'
-              flexWrap='wrap'
-              position='absolute'
-              top='0'
-              left='0'
-              backdropFilter='blur(10px)'
-            >
-              <Heading>Game Over</Heading>
-              <Text my='2'>
-                {newHighscore
-                  ? `New Highscore: ${highscore > score ? highscore : score}`
-                  : `You scored: ${score}`}
+    <Box>
+      <Head />
+      <Center h='100vh'>
+        <Box bgColor={useColorModeValue('gray.50', 'gray.700')} borderRadius='lg'>
+          <canvas ref={canvasRef} width={canvasWidth + 1} height={canvasHeight + 1} />
+          <Box bgColor={useColorModeValue('gray.200', 'gray.900')} borderBottomRadius='lg' p='5'>
+            <Flex>
+              <Text mr={5}>
+                <Box as={FaStar} mr={1} /> Score: {score}
               </Text>
-              {!running && isLost && (
+              <Text>
+                <Box as={FaTrophy} mr={1} />
+                Highscore: {highscore > score ? highscore : score}
+              </Text>
+            </Flex>
+            {!isLost && countDown > 0 ? (
+              <Box
+                w='100%'
+                h='100%'
+                p='20px'
+                borderRadius='lg'
+                boxSizing='border-box'
+                display='flex'
+                flexDirection='column'
+                alignItems='center'
+                justifyContent='center'
+                flexWrap='wrap'
+                position='absolute'
+                top='0'
+                left='0'
+                backdropFilter='blur(10px)'
+              >
+                <GiSandSnake size={100} />
+                <Heading textTransform='uppercase'>snake</Heading>
+                <Text my='2'>Your highscore: {highscore > score ? highscore : score}</Text>
                 <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
-                  {countDown === 4 ? 'Restart' : countDown}
+                  {countDown === 4 ? 'Start' : countDown}
                 </Button>
-              )}
-            </Box>
-          )}
+              </Box>
+            ) : (
+              <Box></Box>
+            )}
+            {isLost && (
+              <Box
+                w='100%'
+                h='100%'
+                p='20px'
+                borderRadius='lg'
+                boxSizing='border-box'
+                display='flex'
+                flexDirection='column'
+                alignItems='center'
+                justifyContent='center'
+                flexWrap='wrap'
+                position='absolute'
+                top='0'
+                left='0'
+                backdropFilter='blur(10px)'
+              >
+                <Heading>Game Over</Heading>
+                <Text my='2'>
+                  {newHighscore
+                    ? `New Highscore: ${highscore > score ? highscore : score}`
+                    : `You scored: ${score}`}
+                </Text>
+                {!running && isLost && (
+                  <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
+                    {countDown === 4 ? 'Restart' : countDown}
+                  </Button>
+                )}
+              </Box>
+            )}
+          </Box>
+          <Box
+            textAlign='center'
+            opacity={0.4}
+            fontSize='sm'
+            position='fixed'
+            w='100%'
+            left={0}
+            bottom='30px'
+          >
+            &copy; {new Date().getFullYear()} idm1try &bull;{' '}
+            <Text as='a' href='https://github.com/idm1try/snake-next'>
+              <Box as={FaGithub} size={11} display='inline' /> Source
+            </Text>
+          </Box>
         </Box>
-      </Box>
-    </Center>
+      </Center>
+    </Box>
   );
 }
 
