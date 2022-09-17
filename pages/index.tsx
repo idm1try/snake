@@ -1,5 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import { Box, Button, Center, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Icon,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaStar, FaTrophy } from 'react-icons/fa';
 import { GiSandSnake } from 'react-icons/gi';
@@ -329,7 +338,7 @@ function App() {
                 Highscore: {highscore > score ? highscore : score}
               </Text>
             </Flex>
-            {!isLost && countDown > 0 ? (
+            {!isLost && countDown > 0 && (
               <Box
                 w='100%'
                 h='100%'
@@ -369,8 +378,6 @@ function App() {
                   </Button>
                 </motion.div>
               </Box>
-            ) : (
-              <Box />
             )}
             {isLost && (
               <Box
@@ -428,9 +435,10 @@ function App() {
             left={0}
             bottom='30px'
           >
-            &copy; {new Date().getFullYear()} idm1try &bull;{' '}
+            &copy; {new Date().getFullYear()} <b>idm1try</b> &bull;{' '}
             <Text as='a' href='https://github.com/idm1try/snake-next'>
-              <Box as={FaGithub} size={11} display='inline' /> Source
+              <Icon as={FaGithub} w={3} h={3} mr={1} />
+              Source
             </Text>
           </Box>
         </Box>
@@ -440,3 +448,4 @@ function App() {
 }
 
 export default App;
+export { getServerSideProps } from '../components/Chakra';

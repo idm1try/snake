@@ -1,5 +1,5 @@
 # Snake Game TypeScript and NextJS
 
-## [Play here](https://snake-next.vercel.app) or [here](https://nesteroff561.ru/snake-game)
+## [Play here](https://snake-next.vercel.app)
 
 ![preview](./public/preview.png)
