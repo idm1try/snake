@@ -10,10 +10,10 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaStar, FaTrophy } from 'react-icons/fa';
 import { GiSandSnake } from 'react-icons/gi';
 import useInterval from '@use-it/interval';
 import { HeadComponent as Head } from '../components/Head';
+import { TbBrandGithub, TbStar, TbTrophy } from 'react-icons/tb';
 
 type Apple = {
   x: number;
@@ -25,7 +25,7 @@ type Velocity = {
   dy: number;
 };
 
-function App() {
+function Snake() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const canvasWidth = 500;
   const canvasHeight = 380;
@@ -43,6 +43,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [snake, setSnake] = useState<{
     head: { x: number; y: number };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     trail: Array<any>;
   }>({
     head: { x: 12, y: 9 },
@@ -220,6 +221,7 @@ function App() {
       drawApple(ctx);
       drawSnake(ctx);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [snake]);
 
   useInterval(
@@ -240,6 +242,7 @@ function App() {
 
   useEffect(() => {
     setHighscore(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       localStorage.getItem('highscore') ? parseInt(localStorage.getItem('highscore')!) : 0
     );
   }, []);
@@ -331,10 +334,10 @@ function App() {
           <Box bgColor={useColorModeValue('gray.200', 'gray.900')} borderBottomRadius='lg' p='5'>
             <Flex>
               <Text mr={5}>
-                <Box as={FaStar} mr={1} /> Score: {score}
+                <Box as={TbStar} mr={1} /> Score: {score}
               </Text>
               <Text>
-                <Box as={FaTrophy} mr={1} />
+                <Box as={TbTrophy} mr={1} />
                 Highscore: {highscore > score ? highscore : score}
               </Text>
             </Flex>
@@ -370,7 +373,7 @@ function App() {
                   exit={{ y: 20, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Box as={GiSandSnake} size={100} />
+                  <Icon as={GiSandSnake} fontSize={100} />
                   <Heading textTransform='uppercase'>snake</Heading>
                   <Text my='2'>Your highscore: {highscore > score ? highscore : score}</Text>
                   <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
@@ -428,16 +431,20 @@ function App() {
           </Box>
           <Box
             textAlign='center'
-            opacity={0.4}
+            textColor='gray.500'
             fontSize='sm'
             position='fixed'
             w='100%'
             left={0}
             bottom='30px'
           >
-            &copy; {new Date().getFullYear()} <b>idm1try</b> &bull;{' '}
-            <Text as='a' href='https://github.com/idm1try/snake-next'>
-              <Icon as={FaGithub} w={3} h={3} mr={1} />
+            &copy; {new Date().getFullYear()}{' '}
+            <a href='https://idm1try.ru'>
+              <b>idm1try</b>
+            </a>{' '}
+            &bull;{' '}
+            <Text as='a' href='https://github.com/idm1try/snake'>
+              <Icon as={TbBrandGithub} fontSize={12} mr={1} />
               Source
             </Text>
           </Box>
@@ -447,5 +454,4 @@ function App() {
   );
 }
 
-export default App;
-export { getServerSideProps } from '../components/Chakra';
+export default Snake;
