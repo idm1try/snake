@@ -333,11 +333,9 @@ function Snake() {
                 <div className='animate-fade_in_up'>
                   <GiSandSnake className='mx-auto' size={100} />
                   <div className='text-4xl font-bold uppercase'>snake</div>
-                  {highscore !== 0 && (
-                    <div className='my-4'>
-                      Your highscore: {highscore > score ? highscore : score}
-                    </div>
-                  )}
+                  <div className='my-4'>
+                    Your highscore: {highscore > score ? highscore : score}
+                  </div>
                   <button
                     className='my-2 min-w-[120px] rounded-lg bg-teal-600 py-2 px-4 font-bold text-white transition-colors duration-200 hover:bg-teal-700 active:bg-teal-800 dark:bg-teal-300 dark:text-zinc-900 dark:hover:bg-teal-400 dark:active:bg-teal-500'
                     onClick={startGame}
