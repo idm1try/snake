@@ -1,19 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
-import {
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Icon,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { GiSandSnake } from 'react-icons/gi';
 import useInterval from '@use-it/interval';
-import { HeadComponent as Head } from '../components/Head';
-import { TbBrandGithub, TbStar, TbTrophy } from 'react-icons/tb';
+import { TbStar, TbTrophy } from 'react-icons/tb';
 
 type Apple = {
   x: number;
@@ -326,131 +314,63 @@ function Snake() {
   }, [previousVelocity]);
 
   return (
-    <Box>
-      <Head />
-      <Center h='100vh'>
-        <Box bgColor={useColorModeValue('gray.50', 'gray.700')} borderRadius='lg'>
+    <div>
+      <div className='absolute left-0 -top-24 flex h-full w-full flex-col flex-wrap items-center justify-center text-center'>
+        <div className='rounded-lg bg-gray-50 dark:bg-gray-800'>
           <canvas ref={canvasRef} width={canvasWidth + 1} height={canvasHeight + 1} />
-          <Box bgColor={useColorModeValue('gray.200', 'gray.900')} borderBottomRadius='lg' p='5'>
-            <Flex>
-              <Text mr={5}>
-                <Box as={TbStar} mr={1} /> Score: {score}
-              </Text>
-              <Text>
-                <Box as={TbTrophy} mr={1} />
+          <div className='rounded-b-lg bg-gray-200 p-5 dark:bg-gray-700/20'>
+            <div className='flex'>
+              <div className='mr-5'>
+                <TbStar className='mr-1 mb-1 inline-block' /> Score: {score}
+              </div>
+              <div>
+                <TbTrophy className='mr-1 mb-1 inline-block' />
                 Highscore: {highscore > score ? highscore : score}
-              </Text>
-            </Flex>
+              </div>
+            </div>
             {!isLost && countDown > 0 && (
-              <Box
-                w='100%'
-                h='100%'
-                p='20px'
-                borderRadius='lg'
-                boxSizing='border-box'
-                display='flex'
-                flexDirection='column'
-                alignItems='center'
-                textAlign='center'
-                justifyContent='center'
-                flexWrap='wrap'
-                position='absolute'
-                top='0'
-                left='0'
-                backdropFilter='blur(10px)'
-              >
-                <motion.div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    justifyContent: 'center',
-                  }}
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 20, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Icon as={GiSandSnake} fontSize={100} />
-                  <Heading textTransform='uppercase'>snake</Heading>
-                  <Text my='2'>Your highscore: {highscore > score ? highscore : score}</Text>
-                  <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
+              <div className='absolute top-0 left-0 flex h-full w-full flex-col flex-wrap items-center justify-center rounded-lg p-5 text-center backdrop-blur'>
+                <div className='animate-fade_in_up'>
+                  <GiSandSnake className='mx-auto' size={100} />
+                  <div className='text-4xl font-bold uppercase'>snake</div>
+                  {highscore !== 0 && (
+                    <div className='my-4'>
+                      Your highscore: {highscore > score ? highscore : score}
+                    </div>
+                  )}
+                  <button
+                    className='my-2 min-w-[120px] rounded-lg bg-teal-600 py-2 px-4 font-bold text-white transition-colors duration-200 hover:bg-teal-700 active:bg-teal-800 dark:bg-teal-300 dark:text-zinc-900 dark:hover:bg-teal-400 dark:active:bg-teal-500'
+                    onClick={startGame}
+                  >
                     {countDown === 4 ? 'Start' : countDown}
-                  </Button>
-                </motion.div>
-              </Box>
+                  </button>
+                </div>
+              </div>
             )}
             {isLost && (
-              <Box
-                w='100%'
-                h='100%'
-                p='20px'
-                borderRadius='lg'
-                boxSizing='border-box'
-                display='flex'
-                flexDirection='column'
-                alignItems='center'
-                justifyContent='center'
-                textAlign='center'
-                flexWrap='wrap'
-                position='absolute'
-                top='0'
-                left='0'
-                backdropFilter='blur(10px)'
-              >
-                <motion.div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexWrap: 'wrap',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                    justifyContent: 'center',
-                  }}
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: 20, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Heading>Game Over</Heading>
-                  <Text my='2'>
+              <div className='absolute top-0 left-0 flex h-full w-full flex-col flex-wrap items-center justify-center rounded-lg p-5 text-center backdrop-blur'>
+                <div className='animate-fade_in_up'>
+                  <div className='text-4xl font-bold'>Game Over</div>
+                  <div className='my-4'>
                     {newHighscore
                       ? `New Highscore: ${highscore > score ? highscore : score}`
                       : `You scored: ${score}`}
-                  </Text>
-                </motion.div>
+                  </div>
+                </div>
                 {!running && isLost && (
-                  <Button my='2' minW='120px' display='flex' colorScheme='teal' onClick={startGame}>
+                  <button
+                    className='my-2 min-w-[120px] rounded-lg bg-teal-600 py-2 px-4 font-bold text-white transition-colors duration-200 hover:bg-teal-700 active:bg-teal-800 dark:bg-teal-300 dark:text-zinc-900 dark:hover:bg-teal-400 dark:active:bg-teal-500'
+                    onClick={startGame}
+                  >
                     {countDown === 4 ? 'Restart' : countDown}
-                  </Button>
+                  </button>
                 )}
-              </Box>
+              </div>
             )}
-          </Box>
-          <Box
-            textAlign='center'
-            textColor='gray.500'
-            fontSize='sm'
-            position='fixed'
-            w='100%'
-            left={0}
-            bottom='30px'
-          >
-            &copy; {new Date().getFullYear()}{' '}
-            <a href='https://idm1try.ru'>
-              <b>idm1try</b>
-            </a>{' '}
-            &bull;{' '}
-            <Text as='a' href='https://github.com/idm1try/snake'>
-              <Icon as={TbBrandGithub} fontSize={12} mr={1} />
-              Source
-            </Text>
-          </Box>
-        </Box>
-      </Center>
-    </Box>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

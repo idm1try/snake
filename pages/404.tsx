@@ -1,30 +1,18 @@
-import NextLink from 'next/link';
-import { Box, Heading, Text, Container, Divider, Button } from '@chakra-ui/react';
-import { FaHome } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { TbHome } from 'react-icons/tb';
 
-const NotFound = () => {
-  return (
-    <Container paddingTop='40px' textAlign='center'>
-      <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 20, opacity: 0 }}
-        transition={{ duration: 0.2 }}
-      >
-        <Heading as='h1'>Not found</Heading>
-        <Text>The page you&apos;re looking for was not found.</Text>
-        <Divider my={6} />
-        <Box my={6}>
-          <NextLink href='/' passHref>
-            <Button colorScheme='teal'>
-              <Box as={FaHome} mr={1} /> Return to home
-            </Button>
-          </NextLink>
-        </Box>
-      </motion.div>
-    </Container>
-  );
-};
+const NotFound = () => (
+  <div className='animate-fade_in_up text-center'>
+    <div className='my-10'>
+      <h1 className='text-5xl font-bold text-teal-600 dark:text-teal-300'>404</h1>
+      <p className='my-5 text-xl font-medium'>Oops, not found</p>
+    </div>
+    <Link href='/'>
+      <button className='mt-3 rounded-lg bg-teal-600 py-2 px-4 font-bold text-white transition-colors duration-200 hover:bg-teal-700 active:bg-teal-800 dark:bg-teal-300 dark:text-zinc-900 dark:hover:bg-teal-400 dark:active:bg-teal-500'>
+        <TbHome className='mb-1 inline-block' /> Go to home
+      </button>
+    </Link>
+  </div>
+);
 
 export default NotFound;

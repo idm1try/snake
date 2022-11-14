@@ -1,18 +1,13 @@
-import { ColorModeScript } from '@chakra-ui/react';
-import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
-import theme from '../lib/theme';
+import { Html, Head, Main, NextScript } from 'next/document';
 
-export default class Document extends NextDocument {
-  render() {
-    return (
-      <Html lang='en'>
-        <Head />
-        <body>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
-}
+const Document = () => (
+  <Html lang='en'>
+    <Head />
+    <body className='mx-auto max-w-3xl break-words leading-6 text-zinc-900 transition-colors duration-500 dark:bg-gray-900 dark:text-zinc-300'>
+      <Main />
+      <NextScript />
+    </body>
+  </Html>
+);
+
+export default Document;
