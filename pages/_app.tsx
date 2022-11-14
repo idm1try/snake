@@ -1,6 +1,5 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { TbHeart } from 'react-icons/tb';
 import '../styles/globals.css';
 
 const Website = ({ Component, pageProps, router }: AppProps) => (
