@@ -1,10 +1,12 @@
-import Link from 'next/link';
-import { TbHome } from 'react-icons/tb';
+import Link from 'next/link'
+import { TbHome } from 'react-icons/tb'
 
 const NotFound = () => (
   <div className='animate-fade_in_up text-center'>
     <div className='my-10'>
-      <h1 className='text-5xl font-bold text-teal-600 dark:text-teal-300'>404</h1>
+      <h1 className='text-5xl font-bold text-teal-600 dark:text-teal-300'>
+        404
+      </h1>
       <p className='my-5 text-xl font-medium'>Oops, not found</p>
     </div>
     <Link href='/'>
@@ -13,6 +15,6 @@ const NotFound = () => (
       </button>
     </Link>
   </div>
-);
+)
 
-export default NotFound;
+export default NotFound
